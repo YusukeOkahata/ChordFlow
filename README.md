@@ -1,6 +1,6 @@
 # ChordFlow 開発者向け README
 
-本ファイルは `script.js` および `movePage.js` に関する開発者向けの仕様・関数・変数の説明書です。
+本ファイルは `script.js` および `movePage.js` に関する開発者向けの仕様・関数・変数の説明書です
 
 ---
 
