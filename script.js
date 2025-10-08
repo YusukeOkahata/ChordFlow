@@ -74,36 +74,43 @@ function computeScale(key, notation) {
   return MAJOR_SCALE_INTERVALS.map((i) => prettyNote(outNotes[(idx + i) % 12]));
 }
 
-// ===== スケール表示 =====
+// ===== ダイアトニックコード表示 =====
 function renderScale() {
   const notation = document.getElementById("notationSelect").value;
   const key = document.getElementById("keySelect").value;
   const scaleDiv = document.getElementById("scaleDisplay");
   scaleDiv.innerHTML = "";
 
-  const scale = computeScale(key, notation);
-  const functions = ["T", "SD", "T", "SD", "D", "T", "D"]; // 機能（トニック/サブドミナント/ドミナント）
+  // ダイアトニックコード構成（メジャーキー）
+  const DIATONIC_MAJOR = ["", "m", "m", "", "", "m", "dim"];
+  const ROMAN_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII"];
+  const FUNCTIONS = ["T", "SD", "T", "SD", "D", "T", "D"];
 
-  for (let i = 0; i < ROMAN_NUMERALS.length; i++) {
+  // スケールを計算
+  const scale = computeScale(key, notation); // 例: ["C", "D", "E", "F", "G", "A", "B"]
+
+  for (let i = 0; i < 7; i++) {
     const block = document.createElement("div");
     block.className = "scale-block";
 
+    // ローマ数字（I, II, III...）
     const roman = document.createElement("div");
     roman.className = "roman";
     roman.textContent = ROMAN_NUMERALS[i];
 
-    const note = document.createElement("div");
-    note.className = "note";
-    note.textContent = scale[i] || "";
+    // コード名（例：C, Dm, Em...）
+    const chord = document.createElement("div");
+    chord.className = "note";
+    chord.textContent = scale[i] ? `${scale[i]}${DIATONIC_MAJOR[i]}` : "";
 
+    // 機能（T, SD, D）
     const func = document.createElement("div");
     func.className = "function";
-    func.textContent = functions[i];
+    func.textContent = FUNCTIONS[i];
 
     block.appendChild(roman);
-    block.appendChild(note);
+    block.appendChild(chord);
     block.appendChild(func);
-
     scaleDiv.appendChild(block);
   }
 }
@@ -116,9 +123,11 @@ function addMeasure(container, measureData = null) {
     arrow.textContent = "→";
     container.appendChild(arrow);
   }
+
   const measure = document.createElement("div");
   measure.className = "measure";
 
+  // ▼ ディグリーネーム
   const romanSelect = document.createElement("select");
   romanSelect.innerHTML = "<option value=''></option>";
   ROMAN_NUMERALS.forEach((r) => {
@@ -128,61 +137,69 @@ function addMeasure(container, measureData = null) {
     romanSelect.appendChild(opt);
   });
 
-  const romanInput = document.createElement("input");
-  romanInput.placeholder = "度数";
-  romanInput.className = "roman-input";
+  // ▼ 音階（＝実際のコード名）
   const chordInput = document.createElement("input");
   chordInput.type = "text";
-  chordInput.placeholder = "コード (例: G7, B♭, F#m7)";
+  chordInput.placeholder = "音階 (例: C, Dm, G)";
   chordInput.className = "code-input";
 
-  // 補完
+  // ▼ 役割（T, SD, D）
+  const funcInput = document.createElement("input");
+  funcInput.type = "text";
+  funcInput.placeholder = "役割 (T, SD, D)";
+  funcInput.className = "function-input";
+  funcInput.readOnly = true; // 自動入力
+
+  // ▼ 選択時の自動補完
   romanSelect.addEventListener("change", () => {
     const sel = romanSelect.value;
     const idx = ROMAN_NUMERALS.indexOf(sel);
     if (idx === -1) {
       chordInput.value = "";
+      funcInput.value = "";
       return;
     }
+
     const notation = document.getElementById("notationSelect").value;
     const key = document.getElementById("keySelect").value;
     const scale = computeScale(key, notation);
-    chordInput.value = scale[idx] || "";
-    romanInput.value = sel;
+
+    const DIATONIC_MAJOR = ["", "m", "m", "", "", "m", "dim"];
+    const FUNCTIONS = ["T", "SD", "T", "SD", "D", "T", "D"];
+
+    chordInput.value = scale[idx] ? `${scale[idx]}${DIATONIC_MAJOR[idx]}` : "";
+    funcInput.value = FUNCTIONS[idx] || "";
   });
-  romanInput.addEventListener("input", () => {
-    const val = romanInput.value.toUpperCase().trim();
-    const idx = ROMAN_NUMERALS.indexOf(val);
-    if (idx !== -1) {
-      const notation = document.getElementById("notationSelect").value;
-      const key = document.getElementById("keySelect").value;
-      const scale = computeScale(key, notation);
-      chordInput.value = scale[idx] || "";
-      romanSelect.value = val;
-    }
-  });
+
+  // ▼ 音階から逆引き（手入力された場合）
   chordInput.addEventListener("input", () => {
     const val = chordInput.value.trim();
     if (!val) return;
+
     const notation = document.getElementById("notationSelect").value;
     const key = document.getElementById("keySelect").value;
     const scale = computeScale(key, notation);
-    const found = scale.indexOf(val);
-    if (found !== -1) {
-      romanSelect.value = ROMAN_NUMERALS[found];
-      romanInput.value = ROMAN_NUMERALS[found];
+    const DIATONIC_MAJOR = ["", "m", "m", "", "", "m", "dim"];
+    const FUNCTIONS = ["T", "SD", "T", "SD", "D", "T", "D"];
+
+    const baseNames = scale.map((s, i) => `${s}${DIATONIC_MAJOR[i]}`);
+    const idx = baseNames.indexOf(val);
+    if (idx !== -1) {
+      romanSelect.value = ROMAN_NUMERALS[idx];
+      funcInput.value = FUNCTIONS[idx];
     }
   });
 
+  // ▼ 保存データがある場合
   if (measureData) {
     romanSelect.value = measureData.roman || "";
-    romanInput.value = measureData.roman || "";
     chordInput.value = measureData.code || "";
+    funcInput.value = measureData.function || "";
   }
 
   measure.appendChild(romanSelect);
-  measure.appendChild(romanInput);
   measure.appendChild(chordInput);
+  measure.appendChild(funcInput);
   container.appendChild(measure);
 }
 
