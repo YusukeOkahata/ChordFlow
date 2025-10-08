@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ChordFlow</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>ChordFlow</h1>
+      <nav class="nav">
+        <a href="index.html" class="active">ツール</a>
+        <a href="howto.html">How to</a>
+      </nav>
+      <div class="controls">
+        <label>
+          表記:
+          <select id="notationSelect">
+            <option value="sharp">♯</option>
+            <option value="flat">♭</option>
+          </select>
+        </label>
+        <label>
+          キー:
+          <select id="keySelect"></select>
+        </label>
+      </div>
+    </header>
+
+    <main>
+      <section id="scaleSection">
+        <h2>ダイアトニックコード</h2>
+        <div id="scaleDisplay"></div>
+      </section>
+
+      <section id="sectionsContainer">
+        <h2>曲構成</h2>
+        <div class="section-controls">
+          <button id="addSectionBtn">＋ セクション追加</button>
+
+          <label>
+            保存形式：
+            <select id="saveFormat">
+              <option value="txt">TXT</option>
+              <option value="json">JSON</option>
+            </select>
+          </label>
+
+          <button id="importBtn">📂 読み込む</button>
+          <input
+            type="file"
+            id="importFile"
+            accept=".json"
+            style="display: none"
+          />
+
+          <button id="exportBtn">💾 保存</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+
+    <script src="movePage.js"></script>
+  </body>
+</html>

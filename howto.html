@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>ChordFlow — How to</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      /* HowToページ専用の小さな補正 */
+      main.howto {
+        max-width: 980px;
+        margin: 6rem auto 4rem; /* ヘッダー固定を考慮して上マージン */
+        padding: 1.25rem;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(15, 23, 42, 0.06);
+      }
+      .howto h1 {
+        margin: 0 0 0.5rem;
+        font-size: 1.6rem;
+      }
+      .howto .lead {
+        color: #444;
+        margin-bottom: 1rem;
+      }
+      .howto section {
+        margin-top: 1rem;
+        padding-top: 0.75rem;
+        border-top: 1px dashed #eee;
+      }
+      .howto h2 {
+        margin-bottom: 0.5rem;
+        font-size: 1.05rem;
+        color: #2b2b2b;
+      }
+      .howto p {
+        line-height: 1.6;
+        color: #333;
+      }
+      .howto pre {
+        background: #f6f8fb;
+        padding: 0.75rem;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 0.95rem;
+      }
+      .howto ul {
+        margin-left: 1rem;
+      }
+      .howto .kbd {
+        display: inline-block;
+        padding: 0.12rem 0.45rem;
+        background: #f3f4f6;
+        border-radius: 6px;
+        border: 1px solid #e6e9ee;
+        font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono",
+          "Helvetica Neue", monospace;
+        font-size: 0.9rem;
+      }
+
+      /* スマホで読みやすく */
+      @media (max-width: 640px) {
+        main.howto {
+          margin: 5.5rem 0.6rem;
+          padding: 1rem;
+          border-radius: 8px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>ChordFlow</h1>
+      <nav class="nav">
+        <a href="index.html">ツール</a>
+        <a href="howto.html" class="active">How to</a>
+      </nav>
+
+      <div class="controls">
+        <label>
+          表記:
+          <select id="notationSelectHeader" disabled>
+            <option>♯</option>
+            <option>♭</option>
+          </select>
+        </label>
+        <label>
+          キー:
+          <select id="keySelectHeader" disabled>
+            <option>C</option>
+          </select>
+        </label>
+      </div>
+    </header>
+
+    <main class="howto" role="main" aria-labelledby="howto-title">
+      <h1 id="howto-title">How to — ChordFlow（使い方）</h1>
+      <p class="lead">
+        ChordFlow の使い方を短くまとめたページです。画面左上の
+        <span class="kbd">ツール</span> に戻ると実際のエディタ画面に戻ります。
+      </p>
+
+      <section id="basics">
+        <h2>1. 基本操作</h2>
+        <p>
+          画面上部で <strong>表記（♯ / ♭）</strong> と
+          <strong>キー</strong>
+          を選択します。選択したキーに合わせてダイアトニック・スケールと各音の機能（トニック
+          / サブドミナント / ドミナント）が自動表示されます。
+        </p>
+
+        <p>表示例（Cメジャー）:</p>
+        <pre>
+I   C   T
+II  Dm  SD
+III Em  T
+IV  F   SD
+V   G   D
+VI  Am  T
+VII Bdim D
+        </pre>
+      </section>
+
+      <section id="sections">
+        <h2>2. セクションの追加</h2>
+        <p>
+          「＋
+          セクション追加」ボタンでセクションを作成します。セクションごとに名前を付け替えられます（例：Intro、Aメロ、Bメロ、サビ）。
+        </p>
+
+        <p>各セクションに含まれる操作：</p>
+        <ul>
+          <li>セクション名の変更（入力欄で直接編集）</li>
+          <li>
+            <span class="kbd">🎶 コード再生</span>：和音（3和音）で順に再生
+          </li>
+          <li><span class="kbd">🎵 単音再生</span>：ルート音だけを順に再生</li>
+          <li><span class="kbd">＋ 小節追加</span>：小節（コード）を追加</li>
+          <li>
+            <span class="kbd">✖ 削除</span
+            >：セクションを削除（確認ダイアログあり）
+          </li>
+        </ul>
+      </section>
+
+      <section id="input">
+        <h2>3. コード入力方法</h2>
+        <p>各小節ブロックには次の3つの入力欄があります：</p>
+        <ul>
+          <li>
+            <strong>ローマ数字セレクト</strong>：I〜VII
+            を選択可能。選ぶと自動でコード欄が補完されます。
+          </li>
+          <li>
+            <strong>ローマ数字手入力</strong>：テキストで I や ii
+            などを入力できます（大文字小文字どちらでも可）。
+          </li>
+          <li>
+            <strong>コード名入力</strong>：G7、B♭、F#m7、C#dim、I/III
+            のようなオンコードもテキストで自由に入力できます。
+          </li>
+        </ul>
+
+        <p>
+          ローマ数字とコード名は双方向で連動します。どちらかを入力するともう片方が可能な範囲で補完されます。
+        </p>
+      </section>
+
+      <section id="playback">
+        <h2>4. 再生機能</h2>
+        <p>
+          各セクションにある再生ボタンで、そのセクション内の小節を順に再生できます。再生中は現在鳴っている小節がハイライトされます。再生は「再生
+          →
+          停止」ボタンで切り替えられ、停止するとすべてのハイライトと音が解除されます。
+        </p>
+
+        <p><strong>再生モード</strong>：</p>
+        <ul>
+          <li>
+            <span class="kbd">🎶 コード再生</span
+            >：各小節の和音（ルート＋3度＋5度）を同時に鳴らします。
+          </li>
+          <li>
+            <span class="kbd">🎵 単音再生</span
+            >：各小節のルート音だけを鳴らします。
+          </li>
+        </ul>
+
+        <p>
+          再生時間は定数で管理されており（既定値：1秒/小節）、将来的に調整可能です。再生は内部で重複しないように制御されています。
+        </p>
+      </section>
+
+      <section id="save-load">
+        <h2>5. 保存と読み込み</h2>
+        <p>
+          「保存形式」から <span class="kbd">TXT</span> または
+          <span class="kbd">JSON</span>
+          を選択してから保存ボタンを押すことで、選択した形式でダウンロードできます。
+        </p>
+
+        <h3>TXT（読みやすいテキスト）</h3>
+        <p>出力例（セクション＆コード進行を矢印でつないだ形式）:</p>
+        <pre>
+■ サビ前半
+I：F/A → IV：B♭ → V：C → V：C#dim → VI：Dm7 → V：Cm6 → I：F#dim → IV：B♭ → IV：B♭m
+
+■ サビ後半
+VI：Dm7 → V：C → IV：B♭ → III：Am → II：Gm → III：Am → IV：B♭ → V：C
+        </pre>
+
+        <h3>JSON（再読み込み可能）</h3>
+        <p>
+          JSON
+          は内部構造（セクション名・小節配列）で保存され、後から「インポート」ボタンで読み込めます。
+        </p>
+      </section>
+
+      <section id="tips">
+        <h2>6. 補足と注意点</h2>
+        <ul>
+          <li>
+            表記（♯/♭）を切り替えると、スケール表示の音名が即時に更新されます。♭表記では
+            E♭ / B♭ のように表示されます。
+          </li>
+          <li>
+            ダイアトニック外のコード（ディミニッシュ、オンコードなど）もコード欄に直接入力できます。
+          </li>
+          <li>
+            ブラウザの自動再生ポリシーにより、最初に再生する際はユーザーの操作（クリック）が必要な場合があります。
+          </li>
+        </ul>
+      </section>
+
+      <section id="extras">
+        <h2>7. 次のステップ（拡張アイデア）</h2>
+        <p>将来的に追加できる便利な機能：</p>
+        <ul>
+          <li>再生テンポ（BPM）や小節長の調整</li>
+          <li>アルペジオの再生パターン選択（上昇/下降/ランダム）</li>
+          <li>コードに対するダイアトニック外の候補提示や解析サジェスト</li>
+        </ul>
+      </section>
+
+      <p style="margin-top: 1.25rem">
+        <a href="index.html" class="button">ツール画面に戻る</a>
+      </p>
+    </main>
+  </body>
+</html>
