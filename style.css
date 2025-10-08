@@ -219,6 +219,22 @@ header h1 {
   margin: 0 0.25rem;
 }
 
+/*  小節削除ボタン */
+.remove-measure-btn {
+  background-color: #f9fafb;
+  color: #000000;
+  font-size: 10px;
+  margin-left: auto;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.remove-measure-btn:hover {
+  color: #ff3b3b;
+  background-color: #f9fafb;
+  transform: scale(1.2);
+}
+
 /* =========================
    曲構成上部ボタン群（保存・読み込み・追加）
 ========================= */
@@ -408,6 +424,14 @@ body.dark-mode button:hover,
 body.dark-mode .section-controls button:hover,
 body.dark-mode .section-controls select:hover {
   background-color: #818cf8;
+}
+body.dark-mode .remove-measure-btn {
+  color: #000000;
+  background-color: #d8d8d8;
+}
+body.dark-mode .remove-measure-btn:hover {
+  color: #ff3b3b;
+  background-color: #d8d8d8;
 }
 
 /* テーマトグルボタン */

@@ -154,6 +154,12 @@ function addMeasure(container, measureData = null) {
   funcInput.className = "function-input";
   funcInput.readOnly = true; // 自動入力
 
+  // ▼ 削除
+  const removeMeasureBtn = document.createElement("button");
+  removeMeasureBtn.textContent = "✕";
+  removeMeasureBtn.title = "この小節を削除";
+  removeMeasureBtn.className = "remove-measure-btn";
+
   // ▼ 選択時の自動補完
   romanSelect.addEventListener("change", () => {
     const sel = romanSelect.value;
@@ -203,11 +209,26 @@ function addMeasure(container, measureData = null) {
     funcInput.value = measureData.function || "";
   }
 
+  measure.appendChild(removeMeasureBtn);
   measure.appendChild(romanSelect);
   measure.appendChild(selectedRoman);
   measure.appendChild(chordInput);
   measure.appendChild(funcInput);
   container.appendChild(measure);
+
+  // 削除ボタンの動作
+  measure.querySelector(".remove-measure-btn").addEventListener("click", () => {
+    if (confirm("この小節を削除しますか？")) {
+      const prev = measure.previousElementSibling;
+      console.log(prev);
+
+      if (prev && prev.classList.contains("arrow")) {
+        prev.remove();
+      }
+
+      measure.remove();
+    }
+  });
 }
 
 // ===== セクション追加 =====
