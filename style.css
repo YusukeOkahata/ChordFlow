@@ -11,6 +11,9 @@ body {
     1.5vw,
     1rem
   ); /* 基本フォントサイズを画面幅に応じて調整 */
+
+  /* モード切替時のトランジション */
+  transition: background-color 0.4s ease, color 0.4s ease;
 }
 
 /* =========================
@@ -326,4 +329,118 @@ button:hover {
   .section-controls {
     gap: 4px;
   }
+}
+
+/* =========================
+    ダークモード対応
+========================= */
+body.dark-mode {
+  background-color: #121212;
+  color: #eaeaea;
+}
+
+/* ヘッダー */
+body.dark-mode header {
+  background: #444444;
+  box-shadow: 0 2px 8px rgba(255, 255, 255, 0.05);
+}
+
+/* ナビリンク */
+body.dark-mode .nav a {
+  color: #ddd;
+}
+body.dark-mode .nav a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .nav a.active {
+  text-decoration: underline;
+  color: #fff;
+}
+
+/* スケールブロック */
+body.dark-mode #scaleSection h2 {
+  color: #fff;
+}
+body.dark-mode .scale-block {
+  background-color: #6e6e6e;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgb(255, 255, 255);
+}
+body.dark-mode .scale-block .roman {
+  color: #a0affc; /* 明るめの青 */
+}
+body.dark-mode .scale-block .note {
+  color: #ffffff; /* 黒→白 */
+}
+body.dark-mode .scale-block .function {
+  color: #52fd3c;
+}
+
+/* 曲構成セクション */
+body.dark-mode .section {
+  background-color: #6e6e6e;
+  color: #ddd;
+  box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .section-controls label {
+  color: #fff;
+}
+
+/* 小節 */
+body.dark-mode .measure {
+  background-color: #d8d8d8;
+  box-shadow: 0 1px 4px rgba(255, 255, 255, 0.05);
+}
+
+body.dark-mode .arrow {
+  color: #f7f7f7;
+}
+
+/* ボタン */
+body.dark-mode button,
+body.dark-mode .section-controls button,
+body.dark-mode .section-controls select {
+  background-color: #6366f1;
+  color: white;
+}
+body.dark-mode button:hover,
+body.dark-mode .section-controls button:hover,
+body.dark-mode .section-controls select:hover {
+  background-color: #818cf8;
+}
+
+/* テーマトグルボタン */
+.theme-toggle {
+  background: none;
+  border: 1px solid rgb(248, 248, 248);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+body.dark-mode .theme-toggle {
+  color: #ddd;
+  border-color: #888;
+}
+
+/* How to */
+body.dark-mode .howto h1 {
+  color: #121212;
+}
+
+body.dark-mode .howto h3 {
+  color: #121212;
+}
+
+body.dark-mode .howto pre {
+  color: #121212;
+}
+
+body.dark-mode .howto ul {
+  color: #121212;
 }

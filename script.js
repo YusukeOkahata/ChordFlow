@@ -219,6 +219,7 @@ function addSection(name = "セクション", sectionData = null) {
   // ▶ コード再生
   const playChordBtn = document.createElement("button");
   playChordBtn.textContent = "🎶 コード再生";
+  playChordBtn.style.background = "#2ff51dff";
   playChordBtn.dataset.type = "chord";
   playChordBtn.dataset.state = "stopped";
   playChordBtn.addEventListener("click", () => {
@@ -232,6 +233,7 @@ function addSection(name = "セクション", sectionData = null) {
   // ▶ 単音再生
   const playSingleBtn = document.createElement("button");
   playSingleBtn.textContent = "🎵 単音再生";
+  playSingleBtn.style.background = "#2ff51dff";
   playSingleBtn.dataset.type = "single";
   playSingleBtn.dataset.state = "stopped";
   playSingleBtn.addEventListener("click", () => {
