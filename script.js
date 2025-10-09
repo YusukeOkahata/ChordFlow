@@ -565,49 +565,6 @@ function exportProgression() {
   }
 }
 
-// ===== 保存処理（TXT/JSON対応） =====
-// function exportProgression() {
-//   const sections = document.querySelectorAll(".section");
-//   const data = [];
-//   sections.forEach((section) => {
-//     const sectionName = section.querySelector(".section-title").value;
-//     const measures = [];
-//     section.querySelectorAll(".measure").forEach((m) => {
-//       measures.push({
-//         roman: m.querySelector(".roman-input")?.value || "",
-//         code: m.querySelector(".code-input")?.value || "",
-//       });
-//     });
-//     data.push({ sectionName, measures });
-//   });
-
-//   const format = document.getElementById("saveFormat")?.value || "json";
-
-//   if (format === "json") {
-//     // JSONとして保存
-//     const blob = new Blob([JSON.stringify(data, null, 2)], {
-//       type: "application/json",
-//     });
-//     downloadFile(blob, "chord_progression.json");
-//   } else {
-//     // TXTとして保存（読みやすく整形）
-//     let txtContent = "";
-//     data.forEach((s) => {
-//       txtContent += `■ ${s.sectionName}\n`;
-
-//       const measureTexts = s.measures.map(
-//         (m) => `${m.roman || ""}：${m.code || ""}`
-//       );
-
-//       // コード進行を「→」でつなぐ
-//       txtContent += measureTexts.join(" → ") + "\n\n";
-//     });
-
-//     const blob = new Blob([txtContent], { type: "text/plain" });
-//     downloadFile(blob, "chord_progression.txt");
-//   }
-// }
-
 function downloadFile(blob, filename) {
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
